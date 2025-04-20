@@ -27,7 +27,9 @@ class ImageListActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NeoSoftAssignmentTheme {
-                ImageListScreen()
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    ImageListScreen(Modifier.padding(innerPadding))
+                }
             }
         }
     }

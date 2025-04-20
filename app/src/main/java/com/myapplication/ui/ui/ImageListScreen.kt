@@ -50,8 +50,8 @@ import com.satta.d_matka.error.StandardError
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ImageListScreen(
-    viewModel: HomeViewModel = hiltViewModel(),
+fun ImageListScreen(modifier: Modifier = Modifier,
+                    viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val listState = rememberLazyListState()
     val context = LocalContext.current
@@ -68,21 +68,15 @@ fun ImageListScreen(
             }
         }
     }
-
-    // Track first visible item index and calculate current page
+// Track first visible item index and calculate current page
     val firstVisibleItemIndex = remember { derivedStateOf { listState.firstVisibleItemIndex } }
     val currentPage = (firstVisibleItemIndex.value / 20) + 1
 
-    // Track when scrolling back to top to update bottom sheet data
-    LaunchedEffect(firstVisibleItemIndex) {
-        val dataList = images.itemSnapshotList.items.map { it.title }
-        showStatisticsBottomSheet(context, dataList, page = currentPage+1)
-    }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
-            .background(Color(0xF6FBF8))
+            .background(Color(0xFFF6FBF8))
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
